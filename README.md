@@ -1,6 +1,7 @@
 study
 =====
 
-Everything for study.
+Study from inflearn.
 
-진짜로 되나?  ㅋㅋㅋㅋㅋㅋㅋ
+1. REST API with Spring boot.
+2. Spring OAUTH2
