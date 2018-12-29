@@ -7,7 +7,7 @@ Here, I memo scripts that I have used during development.
 ### Run Postgres Container
 
 ```
-docker run --name ndb -p 5432:5432 -e POSTGRES_PASSWORD=pass -d postgres
+docker run --name restapi -p 5432:5432 -e POSTGRES_PASSWORD=pass -d postgres
 
 ```
 
