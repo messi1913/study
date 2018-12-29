@@ -33,14 +33,25 @@ public class AppConfig {
             @Autowired
             AccountService accountService;
 
+            @Autowired
+            AppProperties appProperties;
+
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                Account messi = Account.builder()
-                                    .email("sangmessi@gmail.com")
-                                    .password("sangmessi")
-                                    .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
-                                .build();
-                accountService.saveAccount(messi);
+                Account admin = Account.builder()
+                        .email(appProperties.getAdminUsername())
+                        .password(appProperties.getAdminPassword())
+                        .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
+                        .build();
+                accountService.saveAccount(admin);
+
+
+                Account user = Account.builder()
+                        .email(appProperties.getUserUsername())
+                        .password(appProperties.getUserPassword())
+                        .roles(Set.of(AccountRole.ADMIN))
+                        .build();
+                accountService.saveAccount(user);
             }
         };
     }

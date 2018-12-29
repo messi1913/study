@@ -6,6 +6,7 @@ import me.sangmessi.restapi.accounts.AccountRole;
 import me.sangmessi.restapi.accounts.AccountService;
 import me.sangmessi.restapi.common.BaseControllerTest;
 import me.sangmessi.restapi.commons.TestDescription;
+import me.sangmessi.restapi.configs.AppProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class EventControllerTests extends BaseControllerTest {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    AppProperties appProperties;
 
     @Before
     public void setUp(){
@@ -358,17 +362,17 @@ public class EventControllerTests extends BaseControllerTest {
     }
 
     private String getAccessToken() throws Exception {
-        String clientId = "MyApp";
-        String password = "pass";
+        String clientId = appProperties.getClientId();
+        String password = appProperties.getClientSecret();
 
-        String username = "sangmessi@test.com";
-        String userPassword = "sangmessi";
-        Account sangmessi = Account.builder()
+        String username = appProperties.getAdminUsername();
+        String userPassword = appProperties.getAdminPassword();
+        Account admin = Account.builder()
                 .email(username)
                 .password(userPassword)
                 .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
                 .build();
-        this.accountService.saveAccount(sangmessi);
+        this.accountService.saveAccount(admin);
 
         ResultActions perform = this.mockMvc.perform(post("/oauth/token")
                 .with(httpBasic(clientId, password))
